@@ -12,38 +12,53 @@ from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QPushButton
 from PyQt5.QtGui import *
 from PyQt5.QtCore import QCoreApplication
 from PyQt5 import Qt
+
 class App(QWidget):
     def __init__(self):
         super().__init__()
         self.title = 'Weather RealTime'
         self.left = 10
         self.top = 10
-        self.width = 640
-        self.height = 480
+        self.width = 500
+        self.height = 281
         self.initUI()
         self.setBG()
+        self.mylabel()
         self.quitBtn()
+       
 
     def initUI(self):
         #self.setWindowTitle(self.title)
-        self.setWindowFlags(Qt.Qt.CustomizeWindowHint)
+        #self.setWindowFlags(Qt.Qt.CustomizeWindowHint)
+        self.setWindowFlags(Qt.Qt.FramelessWindowHint | Qt.Qt.Dialog)
         self.setGeometry(self.left, self.top, self.width, self.height)
         
     def quitBtn(self):
-        qtn = QPushButton('Quit',self)
+        #qtn = QPushButton('关闭',self)
+        qtn = QPushButton(self)
         qtn.clicked.connect(QCoreApplication.quit)
-        qtn.resize(qtn.sizeHint())
-        qtn.move(40,50)
+        qtn.setIcon(QIcon("close.png"))
+        qtn.resize(18,18)
+        qtn.move(480,1)
+        
+    def mylabel(self):
+        label2 = QLabel(self)
+        label2.setText(u'测试label')
+        label2.setStyleSheet("color:red")
+        label2.setStyleSheet("color:rgb(0, 120, 230);background:transparent")
+#         label2.setFixedWidth(640) 
+#         label2.setFixedHeight(400) 
+        label2.setFont(QFont("微软雅黑", 27, QFont.Bold, False))
 
 
     def setBG(self):
         label = QLabel(self)
-        pixmap = QPixmap('window.png')
+        pixmap = QPixmap('md.png')
         label.setPixmap(pixmap)
         self.resize(self.width, self.height)
 
         #设置透明度
-        self.setWindowOpacity(0.8)
+        self.setWindowOpacity(0.5)
 
     def mousePressEvent(self, event):  
         if event.button()==Qt.Qt.LeftButton:  
