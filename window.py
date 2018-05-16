@@ -12,6 +12,7 @@ from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QPushButton
 from PyQt5.QtGui import *
 from PyQt5.QtCore import QCoreApplication
 from PyQt5 import Qt
+import spider_weather
 
 class App(QWidget):
     def __init__(self):
@@ -43,9 +44,12 @@ class App(QWidget):
         
     def mylabel(self):
         label2 = QLabel(self)
-        label2.setText(u'测试label')
+        #label2.setText(u'测试label')
+        temperatureHigh, temperatureLow, weather = spider_weather.get_weather()
+        text = '最高气温：'+temperatureHigh+'\n'+'最低气温：'+temperatureLow+'\n'+'天气状况：'+weather
+        label2.setText(text)
         label2.setStyleSheet("color:red")
-        label2.setStyleSheet("color:rgb(0, 120, 230);background:transparent")
+        label2.setStyleSheet("color:rgb(0, 201, 184);background:transparent")
 #         label2.setFixedWidth(640) 
 #         label2.setFixedHeight(400) 
         label2.setFont(QFont("微软雅黑", 27, QFont.Bold, False))
@@ -58,7 +62,7 @@ class App(QWidget):
         self.resize(self.width, self.height)
 
         #设置透明度
-        self.setWindowOpacity(0.5)
+        self.setWindowOpacity(0.8)
 
     def mousePressEvent(self, event):  
         if event.button()==Qt.Qt.LeftButton:  
