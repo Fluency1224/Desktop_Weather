@@ -10,7 +10,8 @@ from urllib.request import urlopen
 from bs4 import BeautifulSoup
 import re
 
-def get_weather(url):
+def get_weather():
+    url = 'http://www.weather.com.cn/weather/101190101.shtml'
     resp = urlopen(url)
     
     soup = BeautifulSoup(resp, 'html.parser')
@@ -48,7 +49,4 @@ def get_weather(url):
     
     return temperatureHigh, temperatureLow, weather
 
-if __name__ == '__main__':
-    url = 'http://www.weather.com.cn/weather/101190101.shtml'
-    l1, l2, l3 = get_weather(url)
-    print(l1, l2, l3)
+
