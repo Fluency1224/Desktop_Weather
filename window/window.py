@@ -44,12 +44,15 @@ class App(QWidget):
     def mylabel(self):
         label2 = QLabel(self)
         label2.setText(u'测试label')
-        label2.setStyleSheet("color:red")
-        label2.setStyleSheet("color:rgb(0, 120, 230);background:transparent")
-#         label2.setFixedWidth(640) 
-#         label2.setFixedHeight(400) 
+        #label2.setStyleSheet("color:red")
+        label2.setStyleSheet("color:rgb(0224, 93, 0);background:transparent") 
         label2.setFont(QFont("微软雅黑", 27, QFont.Bold, False))
 
+        label3 = QLabel(self)
+        label3.setText(u'测试label')
+        #label3.setStyleSheet("color:red")
+        label3.setStyleSheet("color:rgb(0224, 93, 0);background:transparent")
+        label3.setFont(QFont("微软雅黑", 27, QFont.Bold, False))
 
     def setBG(self):
         label = QLabel(self)
@@ -58,7 +61,7 @@ class App(QWidget):
         self.resize(self.width, self.height)
 
         #设置透明度
-        self.setWindowOpacity(0.5)
+        self.setWindowOpacity(0.8)
 
     def mousePressEvent(self, event):  
         if event.button()==Qt.Qt.LeftButton:  
