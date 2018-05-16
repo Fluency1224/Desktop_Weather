@@ -33,6 +33,8 @@ class App(QWidget):
         #self.setWindowFlags(Qt.Qt.CustomizeWindowHint)
         self.setWindowFlags(Qt.Qt.FramelessWindowHint | Qt.Qt.Dialog)
         self.setGeometry(self.left, self.top, self.width, self.height)
+#         self.resize(300, 100)
+        self.move(1200, 0)
         
     def quitBtn(self):
         #qtn = QPushButton('关闭',self)
@@ -44,11 +46,9 @@ class App(QWidget):
         
     def mylabel(self):
         label2 = QLabel(self)
-<<<<<<< HEAD:window/window.py
         label2.setText(u'测试label')
         #label2.setStyleSheet("color:red")
         label2.setStyleSheet("color:rgb(0224, 93, 0);background:transparent") 
-=======
         #label2.setText(u'测试label')
         temperatureHigh, temperatureLow, weather = spider_weather.get_weather()
         text = '最高气温：'+temperatureHigh+'\n'+'最低气温：'+temperatureLow+'\n'+'天气状况：'+weather
@@ -57,14 +57,7 @@ class App(QWidget):
         label2.setStyleSheet("color:rgb(0, 201, 184);background:transparent")
 #         label2.setFixedWidth(640) 
 #         label2.setFixedHeight(400) 
->>>>>>> 6480194d074d2a856ea97369b8778d90ff640fa2:window.py
         label2.setFont(QFont("微软雅黑", 27, QFont.Bold, False))
-
-        label3 = QLabel(self)
-        label3.setText(u'测试label')
-        #label3.setStyleSheet("color:red")
-        label3.setStyleSheet("color:rgb(0224, 93, 0);background:transparent")
-        label3.setFont(QFont("微软雅黑", 27, QFont.Bold, False))
 
     def setBG(self):
         label = QLabel(self)
