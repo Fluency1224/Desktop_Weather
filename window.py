@@ -8,66 +8,90 @@
 #!coding:utf-8
 import sys
 import requests
-from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QPushButton
+from PyQt5.QtWidgets import QApplication,QLineEdit,QTextEdit,QVBoxLayout,QGroupBox, QWidget, QLabel, QPushButton, QDesktopWidget,QGridLayout
 from PyQt5.QtGui import *
 from PyQt5.QtCore import QCoreApplication
 from PyQt5 import Qt
 import spider_weather
 
+
+def get_text():
+    temperatureHigh, temperatureLow, weather = spider_weather.get_weather()
+    text = '最高气温：'+temperatureHigh+'\n'+'最低气温：'+temperatureLow+'\n'+'天气状况：'+weather
+    
+    return text
+
 class App(QWidget):
     def __init__(self):
         super().__init__()
-        self.title = 'Weather RealTime'
-        self.left = 10
-        self.top = 10
-        self.width = 500
-        self.height = 281
+        
         self.initUI()
+        
+    def initUI(self):        
+        self.center() 
         self.setBG()
-        self.mylabel()
         self.quitBtn()
-       
-
-    def initUI(self):
-        #self.setWindowTitle(self.title)
+        self.laout()
+        self.show()
+        
+    def center(self):
+        #去掉边框和title
         #self.setWindowFlags(Qt.Qt.CustomizeWindowHint)
         self.setWindowFlags(Qt.Qt.FramelessWindowHint | Qt.Qt.Dialog)
-        self.setGeometry(self.left, self.top, self.width, self.height)
-#         self.resize(300, 100)
-        self.move(1200, 0)
+        self.setGeometry(10, 10, 500, 281)
+        #获得窗口
+        qr = self.frameGeometry()
+        #获得屏幕中心点
+        cp = QDesktopWidget().availableGeometry().center()
+        #显示到屏幕中心
+        qr.moveCenter(cp)
+        self.move(qr.topLeft())
         
+    def setBG(self):
+        #设置透明度
+        self.setWindowOpacity(0.8)  
+      
     def quitBtn(self):
         #qtn = QPushButton('关闭',self)
         qtn = QPushButton(self)
         qtn.clicked.connect(QCoreApplication.quit)
-        qtn.setIcon(QIcon("close.png"))
+        #qtn.setIcon(QIcon("close.png"))
         qtn.resize(18,18)
         qtn.move(480,1)
         
-    def mylabel(self):
-        label2 = QLabel(self)
-        label2.setText(u'测试label')
-        #label2.setStyleSheet("color:red")
-        label2.setStyleSheet("color:rgb(0224, 93, 0);background:transparent") 
-        #label2.setText(u'测试label')
-        temperatureHigh, temperatureLow, weather = spider_weather.get_weather()
-        text = '最高气温：'+temperatureHigh+'\n'+'最低气温：'+temperatureLow+'\n'+'天气状况：'+weather
-        label2.setText(text)
-        label2.setStyleSheet("color:red")
-        label2.setStyleSheet("color:rgb(0, 201, 184);background:transparent")
-#         label2.setFixedWidth(640) 
-#         label2.setFixedHeight(400) 
-        label2.setFont(QFont("微软雅黑", 27, QFont.Bold, False))
-
-    def setBG(self):
-        label = QLabel(self)
+        
+    def laout(self):
         pixmap = QPixmap('md.png')
-        label.setPixmap(pixmap)
-        self.resize(self.width, self.height)
+        
+        weather = QLabel('天气：')
+        weather.setStyleSheet("color:rgb(0, 201, 184);background:transparent")
+        weather.setFont(QFont("微软雅黑", 20, QFont.Bold, False))
+        
+        weatherData = QLabel('晴天')
+        weatherData.setStyleSheet("color:rgb(100, 201, 184);background:transparent")
+        weatherData.setFont(QFont("微软雅黑", 20, QFont.Bold, False))
+        
+        tem = QLabel('气温')
+        tem.setStyleSheet("color:rgb(0, 201, 184);background:transparent")
+        tem.setFont(QFont("微软雅黑", 20, QFont.Bold, False))
+        
+        temData = QLabel('25-30℃')
+        temData.setStyleSheet("color:rgb(0, 201, 184);background:transparent")
+        temData.setFont(QFont("微软雅黑", 20, QFont.Bold, False))
 
-        #设置透明度
-        self.setWindowOpacity(0.8)
+        grid = QGridLayout()
+        grid.setSpacing(10)
+        
+        grid.addWidget(weather, 1, 0)
+        grid.addWidget(weatherData, 1, 1)
 
+        grid.addWidget(tem, 2, 0)
+        grid.addWidget(temData, 2, 1)
+        
+        #grid.setPixmap(pixmap)
+        self.setLayout(grid) 
+
+        
     def mousePressEvent(self, event):  
         if event.button()==Qt.Qt.LeftButton:  
             self.m_flag=True  
@@ -88,5 +112,4 @@ class App(QWidget):
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     ex = App()
-    ex.show()
     sys.exit(app.exec_())
