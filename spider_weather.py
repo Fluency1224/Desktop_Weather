@@ -22,14 +22,25 @@ def get_weather():
     soup = url_soup()
     #第一个包含class="tem"的标签 存放的是今天天气的数据标签
     tagToday = soup.find('p', class_="tem")
+    weather = soup.find('p', class_="wea").string
+    return weather
+#最高温
+def get_temperatureHigh():
+    soup = url_soup()
+    #第一个包含class="tem"的标签 存放的是今天天气的数据标签
+    tagToday = soup.find('p', class_="tem")
     try:
         temperatureHigh = tagToday.span.string
     except AttributeError as e:
         temperatureHigh = tagToday.find_next('p', class_="tem").span.string    
+    return temperatureHigh
+#最低温
+def get_temperatureLow():
+    soup = url_soup()
+    #第一个包含class="tem"的标签 存放的是今天天气的数据标签
+    tagToday = soup.find('p', class_="tem")   
     temperatureLow = tagToday.i.string    
-    weather = soup.find('p', class_="wea").string
-    
-    return temperatureHigh, temperatureLow, weather
+    return temperatureLow
 
 #风力
 def get_winf():  
